@@ -1,1 +1,18 @@
+# VS Code settings
+.vscode/
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Log files
+*.log
+
+# OS files
+.DS_Store
+
+# Large file history (problematic paths)
 projects/soul-elements-mood-cycle/src/images/FileHistory/

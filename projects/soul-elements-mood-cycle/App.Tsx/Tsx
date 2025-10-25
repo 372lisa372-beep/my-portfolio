@@ -1,0 +1,2 @@
+const isVisible = true;
+const result = Number(isVisible) + 1; 

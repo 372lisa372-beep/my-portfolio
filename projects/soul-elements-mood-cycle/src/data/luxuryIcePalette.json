@@ -1,0 +1,30 @@
+
+{
+  "paletteName": "Luxury Ice",
+  "colors": [
+    { "id": 1, "name": "Arctic White", "hex": "#F8F8FF" },
+    { "id": 2, "name": "Platinum Pearl", "hex": "#D9D9D9" },
+    { "id": 3, "name": "Champagne Gold", "hex": "#F7E7CE" },
+    { "id": 4, "name": "Blush Rose", "hex": "#E6A8D7" },
+    { "id": 5, "name": "Smoky Quartz", "hex": "#837E7C" },
+    { "id": 6, "name": "Jet Black", "hex": "#000000" },
+    { "id": 7, "name": "Velvet Mauve", "hex": "#99627A" },
+    { "id": 8, "name": "Sapphire Mist", "hex": "#A7C7E7" },
+    { "id": 9, "name": "Icy Lilac", "hex": "#DCD0FF" },
+    { "id": 10, "name": "Silver Steel", "hex": "#C0C0C0" },
+    { "id": 11, "name": "Dusty Pink", "hex": "#D8A39D" },
+    { "id": 12, "name": "Pale Almond", "hex": "#FFEBCD" },
+    { "id": 13, "name": "Coral Flame", "hex": "#FF6F61" },
+    { "id": 14, "name": "Mocha Bronze", "hex": "#8B6D5C" },
+    { "id": 15, "name": "Neon Fuchsia", "hex": "#FF00FF" },
+    { "id": 16, "name": "Soft Taupe", "hex": "#B38B6D" },
+    { "id": 17, "name": "Graphite Gray", "hex": "#4B4B4B" },
+    { "id": 18, "name": "Electric Blue", "hex": "#007FFF" },
+    { "id": 19, "name": "Rose Gold", "hex": "#B76E79" },
+    { "id": 20, "name": "Lavender Ice", "hex": "#E6E6FA" },
+    { "id": 21, "name": "Opal Glow", "hex": "#CFECEC" },
+    { "id": 22, "name": "Bubblegum Pink", "hex": "#FFB6C1" },
+    { "id": 23, "name": "Stardust Silver", "hex": "#BCC6CC" }
+  ]
+}
+
