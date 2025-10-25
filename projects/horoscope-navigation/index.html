@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horoscope Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .zodiac-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .zodiac-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .zodiac-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .zodiac-symbol {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .zodiac-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .selected-horoscope {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .selected-horoscope.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .horoscope-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Horoscope Navigation 🌟</h1>
+        <p>Click on your zodiac sign to reveal your cosmic guidance</p>
+        
+        <div class="zodiac-grid">
+            <div class="zodiac-card" onclick="showHoroscope('Aries', '♈', 'Today brings fiery energy and new opportunities. Trust your instincts and take bold action!')">
+                <div class="zodiac-symbol">♈</div>
+                <div class="zodiac-name">Aries</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Taurus', '♉', 'Steady progress leads to success. Focus on building something lasting and beautiful.')">
+                <div class="zodiac-symbol">♉</div>
+                <div class="zodiac-name">Taurus</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Gemini', '♊', 'Communication flows freely today. Share your ideas and connect with like-minded souls.')">
+                <div class="zodiac-symbol">♊</div>
+                <div class="zodiac-name">Gemini</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Cancer', '♋', 'Trust your intuition and nurture your emotional well-being. Home brings comfort.')">
+                <div class="zodiac-symbol">♋</div>
+                <div class="zodiac-name">Cancer</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Leo', '♌', 'Your natural charisma shines bright. Take center stage and inspire others.')">
+                <div class="zodiac-symbol">♌</div>
+                <div class="zodiac-name">Leo</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Virgo', '♍', 'Attention to detail pays off. Organize your thoughts and perfect your craft.')">
+                <div class="zodiac-symbol">♍</div>
+                <div class="zodiac-name">Virgo</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Libra', '♎', 'Balance and harmony guide your path. Seek beauty in all your endeavors.')">
+                <div class="zodiac-symbol">♎</div>
+                <div class="zodiac-name">Libra</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Scorpio', '♏', 'Deep transformation awaits. Embrace change and trust your inner power.')">
+                <div class="zodiac-symbol">♏</div>
+                <div class="zodiac-name">Scorpio</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Sagittarius', '♐', 'Adventure calls your name. Expand your horizons and seek new wisdom.')">
+                <div class="zodiac-symbol">♐</div>
+                <div class="zodiac-name">Sagittarius</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Capricorn', '♑', 'Disciplined effort brings lasting rewards. Climb your mountain with determination.')">
+                <div class="zodiac-symbol">♑</div>
+                <div class="zodiac-name">Capricorn</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Aquarius', '♒', 'Innovation and originality flow through you. Think outside the box.')">
+                <div class="zodiac-symbol">♒</div>
+                <div class="zodiac-name">Aquarius</div>
+            </div>
+            <div class="zodiac-card" onclick="showHoroscope('Pisces', '♓', 'Dreams and intuition guide you. Dive deep into your creative waters.')">
+                <div class="zodiac-symbol">♓</div>
+                <div class="zodiac-name">Pisces</div>
+            </div>
+        </div>
+
+        <div id="horoscope-display" class="selected-horoscope">
+            <h3 id="selected-sign">Select your sign</h3>
+            <p id="horoscope-text" class="horoscope-text">Choose your zodiac sign above to reveal your personalized horoscope.</p>
+        </div>
+    </div>
+
+    <script>
+        function showHoroscope(sign, symbol, text) {
+            const display = document.getElementById('horoscope-display');
+            const signElement = document.getElementById('selected-sign');
+            const textElement = document.getElementById('horoscope-text');
+            
+            signElement.textContent = `${symbol} ${sign}`;
+            textElement.textContent = text;
+            
+            display.classList.add('show');
+        }
+    </script>
+</body>
+</html>

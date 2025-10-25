@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Elements Mood Cycle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+        }
+
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .element-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .element-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .element-card:hover::before {
+            left: 100%;
+        }
+
+        .element-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .element-card.fire {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(255, 154, 0, 0.3));
+        }
+
+        .element-card.water {
+            background: linear-gradient(135deg, rgba(69, 183, 209, 0.3), rgba(78, 205, 196, 0.3));
+        }
+
+        .element-card.earth {
+            background: linear-gradient(135deg, rgba(150, 206, 180, 0.3), rgba(139, 195, 74, 0.3));
+        }
+
+        .element-card.air {
+            background: linear-gradient(135deg, rgba(187, 222, 251, 0.3), rgba(144, 202, 249, 0.3));
+        }
+
+        .element-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .element-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .element-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .mood-display {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .mood-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .element-active {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .elements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 0.5s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 1.5s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 0.8s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2.2s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 1.8s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 0.3s;"></div>
+    </div>
+
+    <div class="container">
+        <h1>✨ Soul Elements Mood Cycle ✨</h1>
+        <p class="subtitle">Discover your elemental mood and find inner balance</p>
+        
+        <div class="elements-grid">
+            <div class="element-card fire" onclick="selectElement('Fire', '🔥', 'Passionate and energetic. You\'re feeling motivated and ready to take on challenges. Channel this fiery energy into creative pursuits.')">
+                <span class="element-icon">🔥</span>
+                <div class="element-name">Fire</div>
+                <div class="element-description">Passion • Energy • Transformation</div>
+            </div>
+            
+            <div class="element-card water" onclick="selectElement('Water', '💧', 'Calm and flowing like a peaceful river. You\'re in tune with your emotions and intuition. Trust your feelings and go with the flow.')">
+                <span class="element-icon">💧</span>
+                <div class="element-name">Water</div>
+                <div class="element-description">Emotion • Intuition • Healing</div>
+            </div>
+            
+            <div class="element-card earth" onclick="selectElement('Earth', '🌱', 'Grounded and stable like ancient mountains. You\'re feeling secure and practical. Focus on building lasting foundations.')">
+                <span class="element-icon">🌱</span>
+                <div class="element-name">Earth</div>
+                <div class="element-description">Stability • Growth • Nurturing</div>
+            </div>
+            
+            <div class="element-card air" onclick="selectElement('Air', '💨', 'Light and free like the wind. Your mind is clear and full of new ideas. Communication and learning are highlighted.')">
+                <span class="element-icon">💨</span>
+                <div class="element-name">Air</div>
+                <div class="element-description">Intellect • Freedom • Communication</div>
+            </div>
+        </div>
+
+        <div class="mood-display">
+            <div id="mood-content" class="mood-text">
+                Click on an element above to discover your current soul mood and receive personalized guidance
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectElement(element, icon, message) {
+            const moodContent = document.getElementById('mood-content');
+            const elementCards = document.querySelectorAll('.element-card');
+            
+            // Remove active class from all cards
+            elementCards.forEach(card => card.classList.remove('element-active'));
+            
+            // Add active class to selected card
+            event.target.closest('.element-card').classList.add('element-active');
+            
+            // Update mood display
+            moodContent.innerHTML = `
+                <div style="font-size: 2rem; margin-bottom: 1rem;">${icon}</div>
+                <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Your Soul Element: ${element}</div>
+                <div>${message}</div>
+            `;
+            
+            // Add a gentle glow effect
+            moodContent.style.background = 'rgba(255, 255, 255, 0.15)';
+            moodContent.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                moodContent.style.background = 'rgba(255, 255, 255, 0.1)';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
