@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodMirror - Reflect Your Feelings</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🪞 MoodMirror</h1>
+            <p class="subtitle">Reflect your feelings with personalized messages</p>
+        </header>
+
+        <main class="main">
+            <div class="input-section" id="inputSection">
+                <div class="form-container">
+                    <div class="input-group">
+                        <label for="nameInput" class="label">What's your name?</label>
+                        <input type="text" id="nameInput" class="name-input" placeholder="Enter your name" autocomplete="off">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="label">How are you feeling today?</label>
+                        <div class="mood-grid">
+                            <button class="mood-btn" data-mood="happy" data-emoji="😊">
+                                <span class="mood-emoji">😊</span>
+                                <span class="mood-label">Happy</span>
+                            </button>
+                            <button class="mood-btn" data-mood="sad" data-emoji="😢">
+                                <span class="mood-emoji">😢</span>
+                                <span class="mood-label">Sad</span>
+                            </button>
+                            <button class="mood-btn" data-mood="excited" data-emoji="🤩">
+                                <span class="mood-emoji">🤩</span>
+                                <span class="mood-label">Excited</span>
+                            </button>
+                            <button class="mood-btn" data-mood="calm" data-emoji="😌">
+                                <span class="mood-emoji">😌</span>
+                                <span class="mood-label">Calm</span>
+                            </button>
+                            <button class="mood-btn" data-mood="anxious" data-emoji="😰">
+                                <span class="mood-emoji">😰</span>
+                                <span class="mood-label">Anxious</span>
+                            </button>
+                            <button class="mood-btn" data-mood="angry" data-emoji="😡">
+                                <span class="mood-emoji">😡</span>
+                                <span class="mood-label">Angry</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="mirror-container">
+                    <div class="mirror-frame">
+                        <div class="mirror-content">
+                            <div class="user-reflection">
+                                <div class="user-emoji" id="userEmoji">😊</div>
+                                <div class="user-name" id="userName">User</div>
+                            </div>
+                            <div class="personalized-message" id="personalizedMessage">
+                                Your personalized message will appear here
+                            </div>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <button class="reset-btn" id="resetBtn">Try Again</button>
+                        <button class="export-btn" id="exportBtn">📸 Save Reflection</button>
+                        <button class="history-btn" id="historyBtn">📖 View History</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section" id="historySection" style="display: none;">
+                <div class="history-container">
+                    <div class="history-header">
+                        <h2>📖 Your Mood Journey</h2>
+                        <button class="close-history-btn" id="closeHistoryBtn">✕</button>
+                    </div>
+                    <div class="mood-stats" id="moodStats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalEntries">0</div>
+                            <div class="stat-label">Total Reflections</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="dominantMood">😊</div>
+                            <div class="stat-label">Dominant Mood</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="streakDays">0</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <div class="empty-history">
+                            <p>🌟 Start your mood journey by selecting how you feel!</p>
+                        </div>
+                    </div>
+                    <div class="history-actions">
+                        <button class="clear-history-btn" id="clearHistoryBtn">🗑️ Clear History</button>
+                        <button class="export-history-btn" id="exportHistoryBtn">📊 Export Data</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="background-animation">
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+            <div class="floating-particle"></div>
+        </div>
+
+        <!-- SVG Background Shapes -->
+        <svg class="background-svg" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="shapeGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--primary-color);stop-opacity:0.1" />
+                    <stop offset="100%" style="stop-color:var(--secondary-color);stop-opacity:0.05" />
+                </linearGradient>
+                <linearGradient id="shapeGradient2" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:var(--accent-color);stop-opacity:0.08" />
+                    <stop offset="100%" style="stop-color:var(--primary-color);stop-opacity:0.03" />
+                </linearGradient>
+            </defs>
+            
+            <circle cx="200" cy="300" r="120" fill="url(#shapeGradient1)" class="svg-shape shape-1">
+                <animate attributeName="cy" values="300;250;300" dur="8s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="120;140;120" dur="6s" repeatCount="indefinite"/>
+            </circle>
+            
+            <ellipse cx="800" cy="200" rx="80" ry="140" fill="url(#shapeGradient2)" class="svg-shape shape-2">
+                <animate attributeName="cx" values="800;750;800" dur="10s" repeatCount="indefinite"/>
+                <animateTransform attributeName="transform" type="rotate" values="0 800 200;360 800 200" dur="20s" repeatCount="indefinite"/>
+            </ellipse>
+            
+            <path d="M100,800 Q200,700 300,800 T500,800" stroke="url(#shapeGradient1)" stroke-width="3" fill="none" opacity="0.3" class="svg-shape shape-3">
+                <animate attributeName="d" values="M100,800 Q200,700 300,800 T500,800;M100,800 Q200,750 300,800 T500,800;M100,800 Q200,700 300,800 T500,800" dur="12s" repeatCount="indefinite"/>
+            </path>
+            
+            <polygon points="700,600 750,500 800,600 750,700" fill="url(#shapeGradient2)" class="svg-shape shape-4">
+                <animateTransform attributeName="transform" type="rotate" values="0 750 600;360 750 600" dur="15s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.1;0.3;0.1" dur="5s" repeatCount="indefinite"/>
+            </polygon>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
