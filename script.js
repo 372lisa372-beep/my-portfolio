@@ -164,3 +164,217 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+// ===== ENHANCED FEATURES =====
+
+// Dynamic constellation background
+function createConstellation() {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.classList.add('constellation-canvas');
+    canvas.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.3;
+    `;
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const stars = [];
+    const numStars = 100;
+    
+    // Create stars
+    for (let i = 0; i < numStars; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.8 + 0.2,
+            twinkle: Math.random() * 0.02 + 0.005
+        });
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw stars
+        stars.forEach(star => {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.fill();
+            
+            // Twinkle effect
+            star.opacity += star.twinkle;
+            if (star.opacity > 1 || star.opacity < 0.1) {
+                star.twinkle = -star.twinkle;
+            }
+        });
+        
+        // Draw connections between nearby stars
+        for (let i = 0; i < stars.length; i++) {
+            for (let j = i + 1; j < stars.length; j++) {
+                const dx = stars[i].x - stars[j].x;
+                const dy = stars[i].y - stars[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(stars[i].x, stars[i].y);
+                    ctx.lineTo(stars[j].x, stars[j].y);
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * (1 - distance / 150)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    document.body.appendChild(canvas);
+    animate();
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+}
+
+// Interactive cursor trail
+function createCursorTrail() {
+    const trail = [];
+    const trailLength = 8;
+    
+    document.addEventListener('mousemove', (e) => {
+        trail.push({ x: e.clientX, y: e.clientY });
+        
+        if (trail.length > trailLength) {
+            trail.shift();
+        }
+        
+        // Remove old trail elements
+        document.querySelectorAll('.cursor-trail').forEach(el => el.remove());
+        
+        // Create new trail
+        trail.forEach((point, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('cursor-trail');
+            dot.style.cssText = `
+                position: fixed;
+                left: ${point.x}px;
+                top: ${point.y}px;
+                width: ${3 - index * 0.3}px;
+                height: ${3 - index * 0.3}px;
+                background: rgba(255, 255, 255, ${0.7 - index * 0.08});
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+            `;
+            document.body.appendChild(dot);
+            
+            // Auto-remove after animation
+            setTimeout(() => dot.remove(), 300);
+        });
+    });
+}
+
+// Theme switcher with persistence
+function createThemeSwitcher() {
+    const switcher = document.createElement('button');
+    switcher.innerHTML = '🌙';
+    switcher.classList.add('theme-switcher');
+    switcher.title = 'Toggle dark mode';
+    switcher.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    `;
+    
+    let isDark = localStorage.getItem('darkMode') === 'true';
+    
+    function applyTheme() {
+        if (isDark) {
+            document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
+            document.querySelectorAll('img, video').forEach(media => {
+                media.style.filter = 'invert(1) hue-rotate(180deg)';
+            });
+            switcher.innerHTML = '☀️';
+        } else {
+            document.documentElement.style.filter = 'none';
+            document.querySelectorAll('img, video').forEach(media => {
+                media.style.filter = 'none';
+            });
+            switcher.innerHTML = '🌙';
+        }
+    }
+    
+    switcher.addEventListener('click', () => {
+        isDark = !isDark;
+        localStorage.setItem('darkMode', isDark);
+        applyTheme();
+        
+        // Add click animation
+        switcher.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            switcher.style.transform = 'scale(1)';
+        }, 150);
+    });
+    
+    // Apply saved theme
+    applyTheme();
+    
+    document.body.appendChild(switcher);
+}
+
+// Performance monitoring
+function addPerformanceMetrics() {
+    if ('performance' in window) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const perfData = performance.timing;
+                const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                
+                console.log(`📊 Portfolio Performance:
+                    Page Load Time: ${pageLoadTime}ms
+                    DOM Ready: ${perfData.domContentLoadedEventEnd - perfData.navigationStart}ms
+                    First Paint: ${perfData.responseEnd - perfData.navigationStart}ms
+                `);
+                
+                // Add subtle performance indicator
+                if (pageLoadTime < 3000) {
+                    document.body.classList.add('fast-load');
+                }
+            }, 100);
+        });
+    }
+}
+
+// Initialize all enhanced features
+document.addEventListener('DOMContentLoaded', () => {
+    createConstellation();
+    createCursorTrail();
+    createThemeSwitcher();
+    addPerformanceMetrics();
+    
+    console.log('🚀 Enhanced Portfolio Features Loaded!');
+});
